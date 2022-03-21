@@ -5,7 +5,7 @@
   "author": "sonterix",
   "license": "ISC",
   "scripts": {
-    "build": "babel src --out-dir build"
+    "build": "babel src --out-dir build --out-file-extension .min.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
