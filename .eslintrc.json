@@ -1,6 +1,16 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "script"
+  },
+  "env": {
+    "browser": true
+  },
   "extends": ["eslint:recommended", "airbnb-base"],
   "rules": {
-    "prettier/prettier": "error"
+    "max-len": [2, 120, 2, { "ignoreUrls": true }],
+    "semi": "off",
+    "arrow-parens": "off",
+    "comma-dangle": "off"
   }
 }
