@@ -1,0 +1,23 @@
+{
+  "name": "embed",
+  "version": "1.0.0",
+  "description": "Used to connect external sites to the Moneymade widgets",
+  "author": "sonterix",
+  "license": "ISC",
+  "scripts": {
+    "build": "babel src --out-dir build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.5.1",
+    "eslint": "^8.11.0",
+    "eslint-plugin-import": "^2.25.4",
+    "prettier": "^2.6.0"
+  },
+  "browserslist": "> 0.25%, not dead"
+}
