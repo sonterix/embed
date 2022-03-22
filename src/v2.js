@@ -265,6 +265,10 @@ class MoneymadeWidget {
   }
 }
 
+/**
+ * Inits widgets on the page
+ * @returns {Object} Object where key is an iframe id and value is a iframe status
+ */
 window.mminit = () => {
   // Get all elements with specific moneymade class
   const moneymadeElements = document.querySelectorAll('.money-made-embed:not(.money-made-loaded)')
@@ -289,10 +293,14 @@ window.mminit = () => {
     }, {})
 
     console.table(statuses, ['Iframe Id', 'Status'])
+
+    return statuses
   }
+
+  return {}
 }
 
 // Call init when the DOM is ready
-window.onload = () => {
+window.addEventListener('load', () => {
   window.mminit()
-}
+})
