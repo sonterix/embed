@@ -5,7 +5,7 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
 
-function serializequeryparams(obj) {
+function serializeQueryParams(obj) {
   var str = []
   for (var p in obj)
     if (obj.hasownproperty(p)) {
@@ -15,11 +15,7 @@ function serializequeryparams(obj) {
 }
 
 function getNodeAttribute(domNode, name, defaultValue) {
-  return (
-    (domNode.attributes.getNamedItem(name) && domNode.attributes.getNamedItem(name).value) ||
-    defaultValue ||
-    null
-  )
+  return (domNode.attributes.getNamedItem(name) && domNode.attributes.getNamedItem(name).value) || defaultValue || null
 }
 
 /**
