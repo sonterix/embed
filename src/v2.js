@@ -310,9 +310,8 @@ window.addEventListener('load', () => {
     window.mminit()
   })
 
-  const container = document.documentElement || document.body
-  const config = { attributes: true, childList: true, characterData: true }
+  const config = { attributes: true, childList: true, subtree: true, characterData: true }
 
-  // Start observing the target node for configured mutations
-  observer.observe(container, config)
+  // Start observing the document for configured mutations
+  observer.observe(document, config)
 })
