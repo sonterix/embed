@@ -1,9 +1,15 @@
 class MoneymadeWidget {
-  #host = 'https://widgets.moneymade.io'
+  #hostV1 = 'https://widgets.moneymade.io'
+
+  #hostV2 = 'https://one-widget.vercel.app'
+
+  #node
+
+  #iframeId
 
   constructor(node) {
-    this.node = node
-    this.iframeId = `__mm_${Math.floor(Math.random() * Math.floor(999999))}`
+    this.#node = node
+    this.#iframeId = `__mm_${Math.floor(Math.random() * Math.floor(999999))}`
   }
 
   /**
@@ -18,13 +24,13 @@ class MoneymadeWidget {
       this.mountIframe(iframeElement)
       // Send success status
       if (callback) {
-        callback(this.iframeId, true)
+        callback(this.#iframeId, true)
       }
     } else {
       this.hideNode()
       // Send error status
       if (callback) {
-        callback(this.iframeId, false)
+        callback(this.#iframeId, false)
       }
     }
 
@@ -89,7 +95,7 @@ class MoneymadeWidget {
    * @returns {*} Attribute value or default value
    */
   getNodeAttribute(name, defaultValue = null) {
-    return this.node.getAttribute(name) || defaultValue
+    return this.#node.getAttribute(name) || defaultValue
   }
 
   /**
@@ -102,10 +108,10 @@ class MoneymadeWidget {
     const platformId = this.getNodeAttribute('data-platform-id')
     const industry = this.getNodeAttribute('data-industry')
     const width = this.getNodeAttribute('data-width')
-    const height = this.getNodeAttribute('data-height')
+    let height = this.getNodeAttribute('data-height')
     // Base iframe URL params
     const paramsObj = {
-      frameId: this.iframeId,
+      frameId: this.#iframeId,
       utm_campaign: this.getNodeAttribute('data-utm-campaign'),
       utm_medium: this.getNodeAttribute('data-utm-medium'),
       utm_source: this.getNodeAttribute('data-utm-source')
@@ -116,61 +122,71 @@ class MoneymadeWidget {
 
     switch (embedType) {
       case 'investing':
-        url = new URL(`embed-entry/${platformId}`, this.#host)
+        url = new URL(`embed-entry/${platformId}`, this.#hostV1)
         break
 
       case 'calculator':
-        url = new URL('embed-calculator', this.#host)
+        url = new URL('embed-calculator', this.#hostV1)
         break
 
       case 'quizFull':
-        url = new URL('embed-quiz-expand', this.#host)
+        url = new URL('embed-quiz-expand', this.#hostV1)
         break
 
       case 'full':
-        url = new URL('full-experience', this.#host)
+        url = new URL('full-experience', this.#hostV1)
         break
 
       case 'trading':
-        url = new URL(`embed-trading/${platformId}`, this.#host)
+        url = new URL(`embed-trading/${platformId}`, this.#hostV1)
         break
 
       case 'expandableFull':
-        url = new URL('expandable-discovery', this.#host)
+        url = new URL('expandable-discovery', this.#hostV1)
         break
 
       case 'newQuiz':
-        url = new URL('expandable-quiz', this.#host)
+        url = new URL('expandable-quiz', this.#hostV1)
         break
 
       case 'typeWidget':
-        url = new URL('type-widget', this.#host)
+        url = new URL('type-widget', this.#hostV1)
         paramsObj.type = industry
         break
 
       case 'customWidget':
-        url = new URL('custom-widget', this.#host)
+        url = new URL('custom-widget', this.#hostV1)
         paramsObj.type = industry
         break
 
       case 'stockWidget':
-        url = new URL('stock-widget', this.#host)
+        url = new URL('stock-widget', this.#hostV1)
         break
 
       case 'horizontalDiscovery':
-        url = new URL('horizontal-discovery', this.#host)
+        url = new URL('horizontal-discovery', this.#hostV1)
         break
 
       case 'worldwideWidget':
-        url = new URL('worldwide-widget', this.#host)
+        url = new URL('worldwide-widget', this.#hostV1)
         break
 
       case 'promosSlider':
-        url = new URL('promos-slider', this.#host)
+        url = new URL('promos-slider', this.#hostV1)
         break
 
       case 'discoverByInterest':
-        url = new URL('discover-by-interest', this.#host)
+        url = new URL('discover-by-interest', this.#hostV1)
+        break
+
+      case 'tickerGraph':
+        url = new URL('ticker-graph', this.#hostV2)
+        height = height || 435
+        break
+
+      case 'tickerTable':
+        url = new URL('ticker-table', this.#hostV2)
+        height = height || 382
         break
 
       default:
@@ -184,7 +200,7 @@ class MoneymadeWidget {
 
       // Create and configure iframe element
       const iframeElement = document.createElement('iframe')
-      iframeElement.id = this.iframeId
+      iframeElement.id = this.#iframeId
       iframeElement.src = url.toString()
       iframeElement.style.border = 'none'
       iframeElement.width = width || '100%'
@@ -204,10 +220,10 @@ class MoneymadeWidget {
    */
   mountIframe(iframeElement) {
     // Replacing first element or just adding the iframe to node if node is empty
-    if (this.node.firstChild) {
-      this.node.replaceChild(iframeElement, this.node.firstChild)
+    if (this.#node.firstChild) {
+      this.#node.replaceChild(iframeElement, this.#node.firstChild)
     } else {
-      this.node.appendChild(iframeElement)
+      this.#node.appendChild(iframeElement)
     }
   }
 
@@ -216,7 +232,7 @@ class MoneymadeWidget {
    * @param {MessageEvent} event
    */
   trackIframeMessages(event) {
-    if (event.origin === this.#host) {
+    if (event.origin === this.#hostV1 || event.origin === this.#hostV2) {
       const { action } = event.data
 
       switch (action) {
@@ -243,9 +259,9 @@ class MoneymadeWidget {
    * Hides node element from the DOM
    */
   hideNode() {
-    this.node[0].style.display = 'none'
-    this.node.setAttribute('id', this.iframeId)
-    this.node.setAttribute('data-status', 'Failed to load')
+    this.#node[0].style.display = 'none'
+    this.#node.setAttribute('id', this.#iframeId)
+    this.#node.setAttribute('data-status', 'Failed to load')
   }
 }
 
