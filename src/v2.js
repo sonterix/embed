@@ -265,23 +265,34 @@ class MoneymadeWidget {
   }
 }
 
+window.mminit = () => {
+  // Get all elements with specific moneymade class
+  const moneymadeElements = document.querySelectorAll('.money-made-embed:not(.money-made-loaded)')
+
+  if (moneymadeElements.length) {
+    // Convert elements to the iframes and get the statuses by each iframe
+    const statuses = [...moneymadeElements].reduce((acc, node) => {
+      let data = acc
+      // Create widget
+      const widget = new MoneymadeWidget(node)
+      // Init widget
+      widget.initOnLoad((id, status) => {
+        // Store iframe status
+        data = { ...acc, [id]: status }
+
+        if (status) {
+          node.classList.add('.money-made-loaded')
+        }
+      })
+
+      return data
+    }, {})
+
+    console.table(statuses, ['Iframe Id', 'Status'])
+  }
+}
+
 // Call init when the DOM is ready
 window.onload = () => {
-  // Get all elements with specific moneymade class
-  const moneymadeElements = document.querySelectorAll('.money-made-embed')
-  // Convert elements to the iframes and get the statuses by each iframe
-  const statuses = [...moneymadeElements].reduce((acc, node) => {
-    let data = acc
-    // Create widget
-    const widget = new MoneymadeWidget(node)
-    // Init widget
-    widget.initOnLoad((id, status) => {
-      // Store iframe status
-      data = { ...acc, [id]: status }
-    })
-
-    return data
-  }, {})
-
-  console.table(statuses, ['Status'])
+  window.mminit()
 }
