@@ -303,12 +303,12 @@ window.mminit = () => {
 // Call init when the DOM is ready
 window.addEventListener('load', () => {
   window.mminit()
-
-  // Create an observer instance linked to the callback function
-  const observer = new MutationObserver(() => {
-    window.mminit()
-  })
-
-  // Start observing the target node for configured mutations
-  observer.observe(document.body, { attributes: true, childList: true, subtree: true })
 })
+
+// Create an observer instance linked to the callback function
+const observer = new MutationObserver(() => {
+  window.mminit()
+})
+
+// Start observing the target node for configured mutations
+observer.observe(document.body, { attributes: true, childList: true, subtree: true })
