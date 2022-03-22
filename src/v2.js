@@ -1,7 +1,10 @@
 class MoneymadeWidget {
   hostV1 = 'https://widgets.moneymade.io'
+
   hostV2 = 'https://one-widget.vercel.app'
+
   node
+
   iframeId
 
   constructor(node) {
