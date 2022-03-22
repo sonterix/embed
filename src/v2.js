@@ -181,12 +181,12 @@ class MoneymadeWidget {
 
       case 'tickerGraph':
         url = new URL('ticker-graph', this.#hostV2)
-        height = height || 435
+        height = height || 440
         break
 
       case 'tickerTable':
         url = new URL('ticker-table', this.#hostV2)
-        height = height || 382
+        height = height || 385
         break
 
       default:
@@ -303,4 +303,12 @@ window.mminit = () => {
 // Call init when the DOM is ready
 window.addEventListener('load', () => {
   window.mminit()
+
+  // Create an observer instance linked to the callback function
+  const observer = new MutationObserver(() => {
+    window.mminit()
+  })
+
+  // Start observing the target node for configured mutations
+  observer.observe(document.body, { attributes: true, childList: true, subtree: true })
 })
