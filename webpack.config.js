@@ -5,10 +5,10 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: './src/v2.js',
+  entry: path.join(__dirname, 'src', 'v2.js'),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'v2.min.[fullhash].js'
+    filename: 'v2.min.js'
   },
   module: {
     rules: [
@@ -24,14 +24,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: path.join(__dirname, 'public', 'index.html'),
       filename: 'index.html',
       inject: 'head',
       scriptLoading: 'defer',
       minify: true
     }),
     new CopyPlugin({
-      patterns: [{ from: './public/assets', to: './assets' }]
+      patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
     })
   ]
 }
