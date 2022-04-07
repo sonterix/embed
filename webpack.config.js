@@ -8,7 +8,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'v2.js'),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'v2.min.[hash:8].js'
+    filename: 'v2.min.[fullhash:8].js'
   },
   module: {
     rules: [
@@ -24,8 +24,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: path.join(__dirname, 'build', 'index.html'),
-      template: path.join(__dirname, 'public', 'index.html')
+      filename: 'index.html',
+      template: './public/index.html'
     }),
     new CopyPlugin({
       patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
