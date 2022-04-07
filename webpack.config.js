@@ -3,7 +3,6 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlMinimizerWebpackPlugin = require('html-minimizer-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -34,9 +33,5 @@ module.exports = {
       inject: 'head',
       scriptLoading: 'defer'
     })
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [new HtmlMinimizerWebpackPlugin()]
-  }
+  ]
 }
