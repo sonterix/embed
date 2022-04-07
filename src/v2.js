@@ -107,7 +107,7 @@ class MoneymadeWidget {
     const embedType = this.getNodeAttribute('data-embed-widget', 'investing')
     const platformId = this.getNodeAttribute('data-platform-id')
     const industry = this.getNodeAttribute('data-industry')
-    const width = this.getNodeAttribute('data-width')
+    let width = this.getNodeAttribute('data-width')
     let height = this.getNodeAttribute('data-height')
     // Base iframe URL params
     const paramsWidget = this.getNodeAttribute('data-params')
@@ -180,9 +180,35 @@ class MoneymadeWidget {
         url = new URL('discover-by-interest', this.hostV1)
         break
 
+      case 'tickerSimple':
+        url = new URL('ticker-simple', this.hostV2)
+        height = height || 230
+        break
+
       case 'tickerGraph':
         url = new URL('ticker-graph', this.hostV2)
         height = height || 440
+        break
+
+      case 'articleSnapshot':
+        url = new URL('article-snapshot', this.hostV2)
+        height = height || 360
+        break
+
+      case 'inlineData':
+        url = new URL('inline-data', this.hostV2)
+        width = width || 84
+        height = height || 24
+        break
+
+      case 'monetized':
+        url = new URL('monetized', this.hostV2)
+        height = height || 488
+        break
+
+      case 'categoryRoundup':
+        url = new URL('category-roundup', this.hostV2)
+        height = height || 448
         break
 
       case 'tickerTable':
@@ -206,6 +232,8 @@ class MoneymadeWidget {
       iframeElement.style.border = 'none'
       iframeElement.width = width || '100%'
       iframeElement.height = height || 'auto'
+      // @deprecated
+      iframeElement.align = 'center'
       // Experimental param. It's not working in all browsers
       iframeElement.loading = 'lazy'
 
