@@ -1,14 +1,16 @@
 const path = require('path')
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlMinimizerWebpackPlugin = require('html-minimizer-webpack-plugin')
 
 module.exports = {
   mode: 'production',
   entry: path.join(__dirname, 'src', 'v2.js'),
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'v2.min.js'
+    filename: '[name].[fullhash].min.js',
+    path: path.join(__dirname, 'build')
   },
   module: {
     rules: [
@@ -23,15 +25,18 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html'),
       filename: 'index.html',
       inject: 'head',
-      scriptLoading: 'defer',
-      minify: true
-    }),
-    new CopyPlugin({
-      patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
+      scriptLoading: 'defer'
     })
-  ]
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new HtmlMinimizerWebpackPlugin()]
+  }
 }
