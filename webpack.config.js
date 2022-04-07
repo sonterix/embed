@@ -24,8 +24,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './public/index.html'
+      filename: path.join(__dirname, 'build', 'index.html'),
+      template: path.join(__dirname, 'build', 'index.html')
     }),
     new CopyPlugin({
       patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
