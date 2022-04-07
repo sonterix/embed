@@ -1,7 +1,7 @@
 class MoneymadeWidget {
   hostV1 = 'https://widgets.moneymade.io'
 
-  hostV2 = 'https://one-widget.vercel.app'
+  hostV2 = 'https://markets.moneymade.io'
 
   node
 
@@ -35,7 +35,7 @@ class MoneymadeWidget {
     }
 
     // Init listening for the messages from the iframe
-    window.addEventListener('message', this.trackIframeMessages)
+    window.addEventListener('message', this.trackIframeMessages.bind(this))
   }
   /**
    * The callback function that fires after all init method is done
@@ -266,8 +266,8 @@ class MoneymadeWidget {
 
       switch (action) {
         case 'setWidth': {
-          const { width } = event.data
-          const iframeElement = document.querySelector(`#${this.iframeId}`)
+          const { frameId, width } = event.data
+          const iframeElement = document.querySelector(`#${frameId}`)
 
           if (iframeElement) {
             iframeElement.setAttribute('width', width)
@@ -277,8 +277,8 @@ class MoneymadeWidget {
         }
 
         case 'setHeight': {
-          const { height } = event.data
-          const iframeElement = document.querySelector(`#${this.iframeId}`)
+          const { frameId, height } = event.data
+          const iframeElement = document.querySelector(`#${frameId}`)
 
           if (iframeElement) {
             iframeElement.setAttribute('height', height)
@@ -288,8 +288,8 @@ class MoneymadeWidget {
         }
 
         case 'setSize': {
-          const { width, height } = event.data
-          const iframeElement = document.querySelector(`#${this.iframeId}`)
+          const { frameId, width, height } = event.data
+          const iframeElement = document.querySelector(`#${frameId}`)
 
           if (iframeElement) {
             iframeElement.setAttribute('width', width)
