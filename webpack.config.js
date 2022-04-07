@@ -1,6 +1,7 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -25,6 +26,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       file: path.join(__dirname, 'build', 'index.html'),
       template: path.join(__dirname, 'public', 'index.html')
+    }),
+    new CopyPlugin({
+      patterns: [{ from: path.join(__dirname, 'public', 'assets'), to: path.join(__dirname, 'build', 'assets') }]
     })
   ]
 }
