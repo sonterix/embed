@@ -265,12 +265,34 @@ class MoneymadeWidget {
       const { action } = event.data
 
       switch (action) {
-        // Get height param from iframe and set to the iframe
-        case 'setHeight': {
-          const { frameId, height } = event.data
-          const iframeElement = document.querySelector(`#${frameId}`)
+        case 'setWidth': {
+          const { width } = event.data
+          const iframeElement = document.querySelector(`#${this.iframeId}`)
 
           if (iframeElement) {
+            iframeElement.setAttribute('width', width)
+          }
+
+          break
+        }
+
+        case 'setHeight': {
+          const { height } = event.data
+          const iframeElement = document.querySelector(`#${this.iframeId}`)
+
+          if (iframeElement) {
+            iframeElement.setAttribute('height', height)
+          }
+
+          break
+        }
+
+        case 'setSize': {
+          const { width, height } = event.data
+          const iframeElement = document.querySelector(`#${this.iframeId}`)
+
+          if (iframeElement) {
+            iframeElement.setAttribute('width', width)
             iframeElement.setAttribute('height', height)
           }
 
