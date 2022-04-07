@@ -1,23 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Test Env</title>
-</head>
-<body>
-  <div class="money-made-embed" data-width="100%" data-height="570" data-embed-widget="expandableFull" data-utm-medium="embed"></div>
+    <title>Test environment</title>
 
-  <div class="money-made-embed" data-width="100%" data-height="570" data-embed-widget="quizFull" data-utm-medium="embed"></div>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+        box-sizing: border-box;
+      }
 
-  <div class="money-made-embed" data-width="300" data-height="250" data-embed-widget="customWidget" data-utm-medium="embed"></div>
-  
-  <div class="money-made-embed" data-width="100%" data-embed-widget="tickerGraph" data-utm-medium="embed"></div>
+      .block {
+        margin: 0 auto;
+        padding: 50px 15px;
+        max-width: 1440px;
+        border-bottom: 1px solid #cecece;
+      }
 
-  <div class="money-made-embed" data-width="100%" data-embed-widget="tickerTable" data-utm-medium="embed" data-params="symbol=goog,aapl&timeframe=7d"></div>
+      .block > h2 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        font-size: 42px;
+      }
 
-  <script async src="../build/v2.min.js"></script> 
-</body>
+      .block > h2 > span {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+        background-color: #e62b32;
+        border-radius: 4px;
+      }
+
+      .block > button {
+        margin-bottom: 15px;
+        padding: 5px 10px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        background-color: #e62b32;
+        border: none;
+        border-radius: 4px;
+        transition: color 0.2s;
+        cursor: pointer;
+      }
+
+      .block > button:active {
+        background-color: #a01e23;
+      }
+    </style>
+
+    <script async src="../build/v2.min.js"></script>
+  </head>
+
+  <body>
+    <div class="block">
+      <h2>Simple Ticker<span>#auto-height</span></h2>
+      <button id="change-below">Change widget below</button>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Simple Ticker"
+        data-embed-widget="tickerSimple"
+        data-params="symbol=SPX"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Expanded Ticker<span>#auto-height</span></h2>
+      <button id="remove-iframe-below">Remove iframe below</button>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Expanded Ticker"
+        data-embed-widget="tickerGraph"
+        data-params="symbol=AAPL"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Article Snapshot<span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Article Snapshot"
+        data-embed-widget="articleSnapshot"
+        data-params="symbol=AAPL%2CGOOG%2CAMD"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Inline Data<span>#auto-width</span><span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: inline-block"
+        data-name="Inline Data"
+        data-embed-widget="inlineData"
+        data-params="symbol=AAPL&datapoint=ytd-return&fontSize=16"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Monetized<span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Monetized"
+        data-embed-widget="monetized"
+        data-params="symbol=AAPL&platform=Yieldstreet"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Category Roundup<span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Category Roundup"
+        data-embed-widget="categoryRoundup"
+        data-params="title=Best+CSR+Funds+for+Green+Investing&symbol=AAPL%2CGOOG%2CAMD%2CFB%2CTSLA"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Expanded Ticker<span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Comparison Table"
+        data-embed-widget="tickerTable"
+        data-params="symbol=AAPL%2CGOOG&timeframe=1Y"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Investing<span>#deprecated</span><span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Investing"
+        data-embed-widget="investing"
+        data-platform-id="uATsYFylijsZdY9UkExa"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Calculator<span>#deprecated</span><span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Calculator"
+        data-embed-widget="calculator"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>The Email List Cultivator<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="The Email List Cultivator"
+        data-height="550"
+        data-embed-widget="quizFull"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Legacy Engagement Tool<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Legacy Engagement Tool"
+        data-height="650"
+        data-embed-widget="full"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Trading<span>#deprecated</span><span>#auto-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Trading"
+        data-embed-widget="trading"
+        data-platform-id="uATsYFylijsZdY9UkExa"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>The Revenue Driver<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="The Revenue Driver"
+        data-height="440"
+        data-embed-widget="expandableFull"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>The Engagement King<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="The Engagement King"
+        data-height="550"
+        data-embed-widget="newQuiz"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>The Targeted Audience Converter<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="The Targeted Audience Converter"
+        data-height="520"
+        data-embed-widget="typeWidget"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Custom Widget<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Custom Widget"
+        data-height="240"
+        data-embed-widget="customWidget"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Stock Widget<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Stock Widget"
+        data-height="500"
+        data-embed-widget="stockWidget"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Horizontal Discovery<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Horizontal Discovery"
+        data-height="440"
+        data-embed-widget="horizontalDiscovery"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Worldwide Widget<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Worldwide Widget"
+        data-height="540"
+        data-embed-widget="worldwideWidget"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>The Money Maker<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="The Money Maker"
+        data-height="500"
+        data-embed-widget="promosSlider"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <div class="block">
+      <h2>Discover By Interest<span>#deprecated</span><span>#fixed-height</span></h2>
+      <div
+        class="money-made-embed"
+        style="display: block"
+        data-name="Discover By Interest"
+        data-height="500"
+        data-embed-widget="discoverByInterest"
+        data-utm-medium="embed"
+      ></div>
+    </div>
+
+    <script>
+      window.addEventListener('load', () => {
+        document.querySelector('#change-below').addEventListener('click', event => {
+          const mmembed = event.target.parentNode.querySelector('.money-made-embed')
+          mmembed.setAttribute('data-embed-widget', 'articleSnapshot')
+          mmembed.setAttribute('data-params', 'symbol=goog,aapl,amd')
+        })
+
+        document.querySelector('#remove-iframe-below').addEventListener('click', event => {
+          const mmembed = event.target.parentNode.querySelector('.money-made-embed')
+          mmembed.classList.remove('money-made-loaded')
+          mmembed.innerHTML = ''
+        })
+      })
+    </script>
+  </body>
 </html>

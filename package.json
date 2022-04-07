@@ -16,11 +16,9 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.5.1",
     "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "prettier": "^2.6.0"
   },
-  "browserslist": "> 0.25%, not dead",
-  "dependencies": {
-    "eslint-config-airbnb-base": "^15.0.0"
-  }
+  "browserslist": "> 0.25%, not dead"
 }

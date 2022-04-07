@@ -232,7 +232,7 @@ class MoneymadeWidget {
       iframeElement.style.border = 'none'
       iframeElement.width = width || '100%'
       iframeElement.height = height || 'auto'
-      // @deprecated
+      // Kwno that deprecated but still need for Inline Data widget
       iframeElement.align = 'center'
       // Experimental param. It's not working in all browsers
       iframeElement.loading = 'lazy'
@@ -338,7 +338,12 @@ window.addEventListener('load', () => {
     window.mminit()
   })
 
-  const config = { attributes: true, childList: true, subtree: true, characterData: true }
+  const config = {
+    attributes: true,
+    childList: true,
+    subtree: true,
+    characterData: true
+  }
 
   // Start observing the document for configured mutations
   observer.observe(document, config)
