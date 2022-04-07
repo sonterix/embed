@@ -60,9 +60,17 @@
       .block > button:active {
         background-color: #a01e23;
       }
+
+      .block .money-made-embed {
+        margin-bottom: 20px;
+      }
+
+      .block .money-made-embed:last-child {
+        margin-bottom: 0;
+      }
     </style>
 
-    <script async src="../build/v2.min.js"></script>
+    <script async src="../src/v2.js"></script>
   </head>
 
   <body>
@@ -81,7 +89,7 @@
 
     <div class="block">
       <h2>Expanded Ticker<span>#auto-height</span></h2>
-      <button id="remove-iframe-below">Remove iframe below</button>
+      <button id="change-params-below">Change params below</button>
       <div
         class="money-made-embed"
         style="display: block"
@@ -94,6 +102,7 @@
 
     <div class="block">
       <h2>Article Snapshot<span>#auto-height</span></h2>
+      <button id="add-below-copy">Copy widget below</button>
       <div
         class="money-made-embed"
         style="display: block"
@@ -327,11 +336,19 @@
           mmembed.setAttribute('data-params', 'symbol=goog,aapl,amd')
         })
 
-        document.querySelector('#remove-iframe-below').addEventListener('click', event => {
+        document.querySelector('#change-params-below').addEventListener('click', event => {
           const mmembed = event.target.parentNode.querySelector('.money-made-embed')
-          mmembed.classList.remove('money-made-loaded')
-          mmembed.innerHTML = ''
+          mmembed.setAttribute('data-params', 'symbol=amd')
+
         })
+
+        document.querySelector('#add-below-copy').addEventListener('click', event => {
+          const mmembed = event.target.parentNode.querySelector('.money-made-embed')
+          const mmembedClone = mmembed.cloneNode(false)
+          mmembedClone.classList.remove('money-made-loaded')
+          event.target.parentNode.appendChild(mmembedClone)
+        })
+
       })
     </script>
   </body>

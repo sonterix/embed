@@ -295,54 +295,91 @@ class MoneymadeWidget {
 }
 
 /**
- * Inits widgets on the page
- * @returns {Object} Object where key is an iframe id and value is a iframe status
+ * Inits widgets in provided elements
+ * @param {Element | Element[]} moneymadeEl Array of Moneymade elements
+ * @returns {Object | null} Object where key is an iframe id and value is a iframe status
  */
-window.mminit = () => {
-  // Get all elements with specific moneymade class
-  const moneymadeElements = document.querySelectorAll('.money-made-embed:not(.money-made-loaded)')
-
-  if (moneymadeElements.length) {
-    // Convert elements to the iframes and get the statuses by each iframe
-    const statuses = [...moneymadeElements].reduce((acc, node) => {
-      let data = acc
+window.mminit = moneymadeEl => {
+  // If array of elements
+  if (Array.isArray(moneymadeEl)) {
+    const statuses = moneymadeEl.reduce((acc, node) => {
       // Create widget
       const widget = new MoneymadeWidget(node)
-      // Init widget
       widget.initOnLoad((id, status) => {
-        // Store iframe status
-        data = { ...acc, [id]: status }
-
         if (status) {
           node.classList.add('money-made-loaded')
         }
+
+        acc[id] = status
       })
 
-      return data
+      return acc
     }, {})
 
-    console.table(Object.entries(statuses))
-
+    console.table(statuses)
     return statuses
   }
 
-  return {}
+  // If single element
+  if (moneymadeEl) {
+    // Create widget
+    const widget = new MoneymadeWidget(moneymadeEl)
+    widget.initOnLoad((id, status) => {
+      if (status) {
+        moneymadeEl.classList.add('money-made-loaded')
+      }
+
+      const data = { [id]: status }
+
+      console.table(data)
+      return data
+    })
+  }
+
+  return null
 }
 
 // Call init when the DOM is ready
 window.addEventListener('load', () => {
-  window.mminit()
+  // Get all elements with specific moneymade class
+  const moneymadeElements = document.querySelectorAll('.money-made-embed:not(.money-made-loaded)')
+  // Init widgets inside the elements
+  window.mminit([...moneymadeElements])
 
   // Create an observer instance linked to the callback function
-  const observer = new MutationObserver(() => {
-    window.mminit()
+  const observer = new MutationObserver(mutationsList => {
+    // Checkign for each mutation
+    mutationsList.forEach(({ type, target, attributeName, addedNodes }) => {
+      // Get class list of current element
+      const classList = target?.classList ? [...target.classList] : []
+      // Detect if it's moneymade element
+      const isMoneymadeEl = classList.includes('money-made-embed')
+      const isMoneymadeElLoaded = classList.includes('money-made-loaded')
+
+      if (isMoneymadeEl) {
+        // If attribute has changed (except 'class') in loaded element
+        if (type === 'attributes' && attributeName !== 'class' && isMoneymadeElLoaded) {
+          target.classList.remove('money-made-loaded')
+          window.mminit(target)
+        }
+      } else if (addedNodes.length) {
+        // Checking each added element
+        addedNodes.forEach(element => {
+          const elementClassList = element?.classList ? [...element.classList] : []
+          // If this not loaded moneymade element
+          if (elementClassList.includes('money-made-embed') && !elementClassList.includes('money-made-loaded')) {
+            window.mminit(element)
+          }
+        })
+      }
+    })
   })
 
   const config = {
     attributes: true,
     childList: true,
     subtree: true,
-    characterData: true
+    characterData: false
   }
 
   // Start observing the document for configured mutations
