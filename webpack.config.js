@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      file: path.join(__dirname, 'build', 'index.html'),
+      filename: path.join(__dirname, 'build', 'index.html'),
       template: path.join(__dirname, 'public', 'index.html')
     }),
     new CopyPlugin({
