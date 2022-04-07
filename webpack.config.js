@@ -8,7 +8,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'v2.js'),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'v2.min.[fullhash].js'
+    filename: 'v2.min.js'
   },
   module: {
     rules: [
