@@ -104,7 +104,7 @@ class MoneymadeWidget {
    */
   createIframe() {
     // Get iframe params based on data attributes
-    const embedType = this.getNodeAttribute('data-embed-widget', 'investing')
+    const embedType = this.getNodeAttribute('data-embed-widget')
     const platformId = this.getNodeAttribute('data-platform-id')
     const industry = this.getNodeAttribute('data-industry')
     let width = this.getNodeAttribute('data-width')
