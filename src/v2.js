@@ -331,6 +331,19 @@ class MoneymadeWidget {
               const widget = new MoneymadeWidget(element)
               widget.init()
             }
+            // Check for moneymade elements inside the mutated element and init
+            else if (element instanceof Element) {
+              // Get all elements with specific moneymade class
+              const moneymadeEl = element?.querySelectorAll('.money-made-embed:not(.money-made-loaded)') || []
+
+              if (moneymadeEl.length) {
+                moneymadeEl.forEach(element => {
+                  // Create widget
+                  const widget = new MoneymadeWidget(element)
+                  return widget.init()
+                })
+              }
+            }
           })
         }
       })
