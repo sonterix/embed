@@ -77,22 +77,15 @@ class MoneymadeWidget {
    * @returns {HTMLIFrameElement|null} Created iframe id
    */
   createIframe() {
-    // Get iframe params based on data attributes
+    // Attributes the required for URL
     const embedType = this.getNodeAttribute('data-embed-widget')
     const platformId = this.getNodeAttribute('data-platform-id')
-    const industry = this.getNodeAttribute('data-industry')
+
+    // Base widget size
     let width = this.getNodeAttribute('data-width')
     let height = this.getNodeAttribute('data-height')
-    // Base iframe URL params
-    const paramsWidget = this.getNodeAttribute('data-params')
-    const paramsObj = {
-      frameId: this.iframeId,
-      utm_campaign: this.getNodeAttribute('data-utm-campaign'),
-      utm_medium: this.getNodeAttribute('data-utm-medium'),
-      utm_source: this.getNodeAttribute('data-utm-source')
-    }
 
-    // Create URL
+    // ULR based on embedType
     let url = null
 
     switch (embedType) {
@@ -126,12 +119,10 @@ class MoneymadeWidget {
 
       case 'typeWidget':
         url = new URL('type-widget', MoneymadeWidget.hostV1)
-        paramsObj.type = industry
         break
 
       case 'customWidget':
         url = new URL('custom-widget', MoneymadeWidget.hostV1)
-        paramsObj.type = industry
         break
 
       case 'stockWidget':
@@ -195,6 +186,25 @@ class MoneymadeWidget {
     }
 
     if (url) {
+      // URL GET params
+      const schema = this.getNodeAttribute('data-schema')
+      const industry = this.getNodeAttribute('data-industry')
+      const utmCampaign = this.getNodeAttribute('data-utm-campaign')
+      const utmMedium = this.getNodeAttribute('data-utm-medium')
+      const utmSource = this.getNodeAttribute('data-utm-source')
+      //  Custom prarms for URL GET
+      const paramsWidget = this.getNodeAttribute('data-params')
+
+      // Combine all props
+      const paramsObj = {
+        frameId: this.iframeId,
+        ...(schema ? { schema } : {}),
+        ...(industry ? { type: industry } : {}),
+        ...(utmCampaign ? { utm_campaign: utmCampaign } : {}),
+        ...(utmMedium ? { utm_medium: utmMedium } : {}),
+        ...(utmSource ? { utm_source: utmSource } : {})
+      }
+
       // Add params to the iframe URL
       const params = new URLSearchParams(paramsObj).toString()
       url.search = [paramsWidget, params].join('&')
