@@ -147,38 +147,43 @@ class MoneymadeWidget {
 
       case 'tickerSimple':
         url = new URL('ticker-simple', MoneymadeWidget.hostV2)
-        height = height || 230
+        height = height || 224
         break
 
       case 'tickerGraph':
         url = new URL('ticker-graph', MoneymadeWidget.hostV2)
-        height = height || 440
+        height = height || 490
         break
 
       case 'articleSnapshot':
         url = new URL('article-snapshot', MoneymadeWidget.hostV2)
-        height = height || 360
+        height = height || 295
         break
 
       case 'inlineData':
         url = new URL('inline-data', MoneymadeWidget.hostV2)
         width = width || 84
-        height = height || 24
+        height = height || 25
         break
 
       case 'monetized':
         url = new URL('monetized', MoneymadeWidget.hostV2)
-        height = height || 488
+        height = height || 509
         break
 
       case 'categoryRoundup':
         url = new URL('category-roundup', MoneymadeWidget.hostV2)
-        height = height || 448
+        height = height || 495
         break
 
       case 'tickerTable':
         url = new URL('ticker-table', MoneymadeWidget.hostV2)
-        height = height || 385
+        height = height || 342
+        break
+
+      case 'gainersLosers':
+        url = new URL('gainers-losers', MoneymadeWidget.hostV2)
+        height = height || 384
         break
 
       default:
