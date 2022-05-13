@@ -44,6 +44,15 @@
         border-radius: 4px;
       }
 
+      .block > input {
+        max-width: 200px;
+        width: 100%;
+        padding: 8px 15px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
       .block > button {
         margin-bottom: 15px;
         padding: 5px 10px;
@@ -127,7 +136,9 @@
 
     <div class="block">
       <h2>Monetized<span>#auto-height</span></h2>
+      <iframe title="control" src="https://markets.moneymade.io/symbol-search/widget?controlId=monetized" width="220" style="border:none;"></iframe>
       <div
+        id="monetized"
         class="money-made-embed"
         style="display: block"
         data-name="Monetized"
@@ -338,7 +349,6 @@
           mmembedClone.classList.remove('money-made-loaded')
           event.target.parentNode.appendChild(mmembedClone)
         })
-
       })
     </script>
   </body>

@@ -186,6 +186,11 @@ class MoneymadeWidget {
         height = height || 384
         break
 
+      case 'symbolSearch':
+        url = new URL('symbol-search', MoneymadeWidget.hostV2)
+        height = height || 134
+        break
+
       default:
         break
     }
@@ -280,36 +285,58 @@ class MoneymadeWidget {
     // Init listening for the messages from the iframe
     window.addEventListener('message', event => {
       if (event.origin === MoneymadeWidget.hostV1 || event.origin === MoneymadeWidget.hostV2) {
-        const { frameId, action, width, height } = event.data
-        const iframeElement = frameId ? document.querySelector(`#${frameId}`) : null
+        const { action } = event.data
 
-        if (iframeElement) {
-          switch (action) {
-            case 'setWidth': {
-              if (width) {
-                iframeElement.setAttribute('width', width)
-              }
-              break
-            }
+        switch (action) {
+          case 'setWidth': {
+            const { frameId, width } = event.data
+            const iframeElement = frameId ? document.querySelector(`#${frameId}`) : null
 
-            case 'setHeight': {
-              if (height) {
-                iframeElement.setAttribute('height', height)
-              }
-              break
+            if (width && iframeElement) {
+              iframeElement.setAttribute('width', width)
             }
+            break
+          }
 
-            case 'setSize': {
-              if (width && height) {
-                iframeElement.setAttribute('width', width)
-                iframeElement.setAttribute('height', height)
-              }
-              break
-            }
+          case 'setHeight': {
+            const { frameId, height } = event.data
+            const iframeElement = frameId ? document.querySelector(`#${frameId}`) : null
 
-            default: {
-              break
+            if (height && iframeElement) {
+              iframeElement.setAttribute('height', height)
             }
+            break
+          }
+
+          case 'setSize': {
+            const { frameId, width, height } = event.data
+            const iframeElement = frameId ? document.querySelector(`#${frameId}`) : null
+
+            if (width && height && iframeElement) {
+              iframeElement.setAttribute('width', width)
+              iframeElement.setAttribute('height', height)
+            }
+            break
+          }
+
+          case 'changeSymbol': {
+            const { controlId, symbol } = event.data
+            const controlledElement = controlId ? document.querySelector(`#${controlId}`) : null
+
+            if (symbol && controlledElement) {
+              // Get data-params. Cuz there symbol param is
+              const params = controlledElement.getAttribute('data-params') || ''
+              const paramsObj = Object.fromEntries(new URLSearchParams(params))
+              // Change symbol
+              paramsObj.symbol = symbol
+              // Add updated params to element
+              controlledElement.setAttribute('data-params', new URLSearchParams(paramsObj).toString())
+            }
+            break
+          }
+
+          default: {
+            break
           }
         }
       }
