@@ -191,6 +191,11 @@ class MoneymadeWidget {
         height = height || 134
         break
 
+      case 'compactPerformance':
+        url = new URL('compact-performance', MoneymadeWidget.hostV2)
+        height = height || 406
+        break
+
       default:
         break
     }
