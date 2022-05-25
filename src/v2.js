@@ -196,6 +196,11 @@ class MoneymadeWidget {
         height = height || 406
         break
 
+      case 'editorial':
+        url = new URL('editorial', MoneymadeWidget.hostV2)
+        height = height || 386
+        break
+
       default:
         break
     }
@@ -405,6 +410,32 @@ class MoneymadeWidget {
 
     // Start observing the document for configured mutations
     observer.observe(document, config)
+  }
+
+  /**
+   * Get statistic info about the user
+   */
+  static trackUser() {
+    const timezoneVal = (new Date().getTimezoneOffset() / -60).toString()
+
+    // Get base user data
+    const date = new Date().toString()
+    const timezone = timezoneVal ? `+${timezoneVal}` : timezoneVal
+    const os = navigator?.userAgentData?.platform || 'none'
+    const ram = navigator?.deviceMemory || 0
+    const parent = window.location !== window.parent.location ? document.referrer : 'not in iframe'
+    const host = window.location.hostname
+    const path = window.location.pathname
+    const resolution = `${window.screen.width}x${window.screen.height}`
+    const isCookie = navigator.cookieEnabled
+    const languages = navigator?.languages || []
+
+    // Detect device
+    let isMobile = false
+
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      isMobile = true
+    }
   }
 }
 
