@@ -81,10 +81,6 @@ class MoneymadeWidget {
     const embedType = this.getNodeAttribute('data-embed-widget')
     const platformId = this.getNodeAttribute('data-platform-id')
 
-    // Base widget size
-    let width = this.getNodeAttribute('data-width')
-    let height = this.getNodeAttribute('data-height')
-
     // ULR based on embedType
     let url = null
 
@@ -147,58 +143,46 @@ class MoneymadeWidget {
 
       case 'tickerSimple':
         url = new URL('ticker-simple', MoneymadeWidget.hostV2)
-        height = height || 224
         break
 
       case 'tickerGraph':
         url = new URL('ticker-graph', MoneymadeWidget.hostV2)
-        height = height || 490
         break
 
       case 'articleSnapshot':
         url = new URL('article-snapshot', MoneymadeWidget.hostV2)
-        height = height || 295
         break
 
       case 'inlineData':
         url = new URL('inline-data', MoneymadeWidget.hostV2)
-        width = width || 84
-        height = height || 25
         break
 
       case 'monetized':
         url = new URL('monetized', MoneymadeWidget.hostV2)
-        height = height || 509
         break
 
       case 'categoryRoundup':
         url = new URL('category-roundup', MoneymadeWidget.hostV2)
-        height = height || 495
         break
 
       case 'tickerTable':
         url = new URL('ticker-table', MoneymadeWidget.hostV2)
-        height = height || 342
         break
 
       case 'gainersLosers':
         url = new URL('gainers-losers', MoneymadeWidget.hostV2)
-        height = height || 384
         break
 
       case 'symbolSearch':
         url = new URL('symbol-search', MoneymadeWidget.hostV2)
-        height = height || 134
         break
 
       case 'compactPerformance':
         url = new URL('compact-performance', MoneymadeWidget.hostV2)
-        height = height || 406
         break
 
       case 'editorial':
         url = new URL('editorial', MoneymadeWidget.hostV2)
-        height = height || 386
         break
 
       default:
@@ -206,6 +190,9 @@ class MoneymadeWidget {
     }
 
     if (url) {
+      // Base widget size
+      const width = this.getNodeAttribute('data-width')
+      const height = this.getNodeAttribute('data-height')
       // URL GET params
       const schema = this.getNodeAttribute('data-schema')
       const industry = this.getNodeAttribute('data-industry')
