@@ -257,7 +257,7 @@ class MoneymadeWidget {
   logStatus(status) {
     // eslint-disable-next-line no-console
     console.info(
-      `%cWidget: { id: %c${this.iframeId} %cloaded: %c${status} %c}`,
+      `%cWidget: { id: %c${this.iframeId}, %cloaded: %c${status} %c}`,
       'color: #fff',
       'color: #6525c2',
       'color: #fff',
@@ -270,7 +270,7 @@ class MoneymadeWidget {
    * Hides node element from the DOM
    */
   hideNode() {
-    this.node[0].style.display = 'none'
+    this.node.style.display = 'none'
     this.node.setAttribute('id', this.iframeId)
     this.node.setAttribute('data-status', 'Failed to load')
   }
