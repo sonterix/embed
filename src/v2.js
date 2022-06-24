@@ -185,6 +185,10 @@ class MoneymadeWidget {
         url = new URL('editorial', MoneymadeWidget.hostV2)
         break
 
+      case 'best-performing-table':
+        url = new URL('best-performing-table', MoneymadeWidget.hostV2)
+        break
+
       default:
         break
     }
@@ -317,7 +321,7 @@ class MoneymadeWidget {
           }
 
           case 'changeSymbol': {
-            const { controlId, symbol } = event.data
+            const { controlId, symbol, exchange } = event.data
             const controlledElement = controlId ? document.querySelector(`#${controlId}`) : null
 
             if (symbol && controlledElement) {
@@ -326,6 +330,7 @@ class MoneymadeWidget {
               const paramsObj = Object.fromEntries(new URLSearchParams(params))
               // Change symbol
               paramsObj.symbol = symbol
+              paramsObj.exchange = exchange
               // Add updated params to element
               controlledElement.setAttribute('data-params', new URLSearchParams(paramsObj).toString())
             }
