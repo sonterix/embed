@@ -189,6 +189,10 @@ class MoneymadeWidget {
         url = new URL('best-performing-table', MoneymadeWidget.hostV2)
         break
 
+      case 'compare-price':
+        url = new URL('compare-price', MoneymadeWidget.hostV2)
+        break
+
       default:
         break
     }
