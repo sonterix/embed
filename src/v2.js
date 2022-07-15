@@ -80,7 +80,9 @@ class MoneymadeWidget {
     // Attributes the required for URL
     const embedType = this.getNodeAttribute('data-embed-widget')
     const platformId = this.getNodeAttribute('data-platform-id')
-
+    // Base widget size
+    const width = this.getNodeAttribute('data-width')
+    let height = this.getNodeAttribute('data-height')
     // ULR based on embedType
     let url = null
 
@@ -193,14 +195,28 @@ class MoneymadeWidget {
         url = new URL('compare-price', MoneymadeWidget.hostV2)
         break
 
+      case 'compare-platforms':
+        url = new URL('compare-platforms', MoneymadeWidget.hostV2)
+        break
+
+      case 'compare-returns':
+        url = new URL('compare-returns', MoneymadeWidget.hostV2)
+        break
+
+      case 'full-stock':
+        height = 300
+        url = new URL('full-stock', MoneymadeWidget.hostV2)
+        break
+
+      case 'top-nfts':
+        url = new URL('top-nfts', MoneymadeWidget.hostV2)
+        break
+
       default:
         break
     }
 
     if (url) {
-      // Base widget size
-      const width = this.getNodeAttribute('data-width')
-      const height = this.getNodeAttribute('data-height')
       // URL GET params
       const schema = this.getNodeAttribute('data-schema')
       const industry = this.getNodeAttribute('data-industry')
